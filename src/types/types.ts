@@ -7,6 +7,8 @@ export interface INoteItem {
 
 export type AppContextType = {
   notesList: INoteItem[];
+  currentNote?: INoteItem;
 
   deleteNote: (id: number) => void;
+  chooseCurrentNote: (id: number) => void;
 };
