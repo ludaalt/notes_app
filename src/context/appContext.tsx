@@ -19,6 +19,18 @@ const AppProvider: FC<Props> = ({ children }) => {
     setCurrentNote(choosenNote);
   };
 
+  const filterData = (value: string) => {
+    if (!value) {
+      setNotesList(notes);
+      return;
+    }
+    const filteredAppData = notes.filter((item) => {
+      return item.title.toLowerCase().includes(value.toLowerCase());
+    });
+
+    setNotesList(filteredAppData);
+  };
+
   const deleteNote = (id: number) => {
     const newNoteList = notesList.filter((item: INoteItem) => item.id !== id);
     setNotesList(newNoteList);
@@ -26,7 +38,13 @@ const AppProvider: FC<Props> = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ notesList, currentNote, chooseCurrentNote, deleteNote }}
+      value={{
+        notesList,
+        currentNote,
+        chooseCurrentNote,
+        filterData,
+        deleteNote,
+      }}
     >
       {children}
     </AppContext.Provider>

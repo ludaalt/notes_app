@@ -5,7 +5,6 @@ import NoteListControlPanel from "./NoteListControlPanel";
 import { AppContext } from "../context/appContext";
 import { AppContextType } from "../types/types";
 
-import { notes } from "../data/notes";
 import Note from "./Note";
 
 const StyledNoteList = styled.div`
@@ -23,7 +22,7 @@ const StyledNoteList = styled.div`
 `;
 
 const NoteList = () => {
-  const { currentNote, chooseCurrentNote } = useContext(
+  const { notesList, currentNote, chooseCurrentNote } = useContext(
     AppContext
   ) as AppContextType;
 
@@ -31,7 +30,7 @@ const NoteList = () => {
     <StyledNoteList>
       <NoteListControlPanel />
       <ul>
-        {notes.map((item) => (
+        {notesList.map((item) => (
           <Note
             isChoosen={currentNote?.id === item.id}
             chooseCurrentNote={() => chooseCurrentNote(item.id)}

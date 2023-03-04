@@ -11,4 +11,5 @@ export type AppContextType = {
 
   deleteNote: (id: number) => void;
   chooseCurrentNote: (id: number) => void;
+  filterData: (value: string) => void;
 };
