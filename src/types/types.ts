@@ -6,6 +6,10 @@ export interface INoteItem {
 }
 
 export type AppContextType = {
+  isModalOpen: boolean;
+  openDeleteDialog: () => void;
+  closeDeleteDialog: () => void;
+
   notesList: INoteItem[];
   currentNote?: INoteItem;
 

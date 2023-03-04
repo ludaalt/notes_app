@@ -1,37 +1,35 @@
-import { FC, useState, useEffect } from "react";
+import { useContext } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 
-type Props = {
-  isOpen: boolean;
-};
+import { AppContext } from "../context/appContext";
+import { AppContextType } from "../types/types";
 
-const DeleteDialog: FC<Props> = ({ isOpen }) => {
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
+const DeleteDialog = () => {
+  const { isModalOpen, currentNote, deleteNote, closeDeleteDialog } =
+    useContext(AppContext) as AppContextType;
 
   return (
     <div>
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={isModalOpen}
+        onClose={closeDeleteDialog}
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title">
           {"Do you really want to delete this note?"}
         </DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={closeDeleteDialog}>No</Button>
+          <Button
+            onClick={() => {
+              deleteNote(currentNote!.id);
+              closeDeleteDialog();
+            }}
+            autoFocus
+          >
             Yes
           </Button>
         </DialogActions>

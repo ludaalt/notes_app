@@ -15,12 +15,14 @@ const StyledPreviewArea = styled.div`
 `;
 
 const PreviewArea = () => {
-  const { currentNote } = useContext(AppContext) as AppContextType;
+  const { notesList, currentNote } = useContext(AppContext) as AppContextType;
 
   return (
     <StyledPreviewArea>
       <PreviewAreaControlPanel />
-      {currentNote && <h1>{currentNote.title}</h1>}
+      {notesList.find((item) => currentNote?.id === item.id) && (
+        <h1>{currentNote!.title}</h1>
+      )}
     </StyledPreviewArea>
   );
 };

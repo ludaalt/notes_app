@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AppProvider from "./context/appContext";
 import NoteList from "./components/NoteList";
 import PreviewArea from "./components/PreviewArea";
+import DeleteDialog from "./components/DeleteDialog";
 
 const MainComponent = styled.div`
   width: 100%;
@@ -16,6 +17,7 @@ const App = (): JSX.Element => {
       <MainComponent>
         <NoteList />
         <PreviewArea />
+        <DeleteDialog />
       </MainComponent>
     </AppProvider>
   );

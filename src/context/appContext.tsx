@@ -11,8 +11,17 @@ interface Props {
 
 const AppProvider: FC<Props> = ({ children }) => {
   const [notesList, setNotesList] = useState<INoteItem[]>(notes);
-
   const [currentNote, setCurrentNote] = useState<INoteItem>();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openDeleteDialog = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeDeleteDialog = () => {
+    setIsModalOpen(false);
+  };
 
   const chooseCurrentNote = (id: number) => {
     const choosenNote = notesList.find((item) => item.id === id);
@@ -39,6 +48,9 @@ const AppProvider: FC<Props> = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        isModalOpen,
+        openDeleteDialog,
+        closeDeleteDialog,
         notesList,
         currentNote,
         chooseCurrentNote,

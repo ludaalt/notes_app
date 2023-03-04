@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import ListIcon from "@mui/icons-material/List";
 import GridViewIcon from "@mui/icons-material/GridView";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styled from "styled-components";
+
+import { AppContext } from "../context/appContext";
+import { AppContextType } from "../types/types";
 
 const StyledNoteListControlPanel = styled.div`
   display: flex;
@@ -11,6 +15,10 @@ const StyledNoteListControlPanel = styled.div`
 `;
 
 const NoteListControlPanel = () => {
+  const { currentNote, openDeleteDialog } = useContext(
+    AppContext
+  ) as AppContextType;
+
   return (
     <StyledNoteListControlPanel>
       <div>
@@ -23,7 +31,14 @@ const NoteListControlPanel = () => {
         </IconButton>
       </div>
 
-      <IconButton color="secondary" aria-label="delete a note">
+      <IconButton
+        color="secondary"
+        aria-label="delete a note"
+        onClick={() => {
+          openDeleteDialog();
+        }}
+        disabled={!currentNote}
+      >
         <DeleteIcon />
       </IconButton>
     </StyledNoteListControlPanel>
