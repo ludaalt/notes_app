@@ -13,3 +13,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.bold {
+  color: red;
+  font-weight: bold;
+  text-transform: uppercase;
+}

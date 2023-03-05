@@ -18,6 +18,8 @@ const AppProvider: FC<Props> = ({ children }) => {
 
   const [showMode, setShowMode] = useState<string>(SHOW_MODES.List);
 
+  const [isNoteFormatted, setIsNoteFormatted] = useState<boolean>(false);
+
   const showModeHandle = () => {
     showMode === SHOW_MODES.List
       ? setShowMode(SHOW_MODES.Grid)
@@ -42,7 +44,7 @@ const AppProvider: FC<Props> = ({ children }) => {
       setNotesList(notes);
       return;
     }
-    const filteredAppData = notes.filter((item) => {
+    const filteredAppData = notesList.filter((item) => {
       return item.title.toLowerCase().includes(value.toLowerCase());
     });
 
@@ -62,6 +64,8 @@ const AppProvider: FC<Props> = ({ children }) => {
     );
   };
 
+  const formatTextHandler = () => setIsNoteFormatted((prev) => !prev);
+
   return (
     <AppContext.Provider
       value={{
@@ -76,6 +80,8 @@ const AppProvider: FC<Props> = ({ children }) => {
         filterData,
         deleteNote,
         rewriteNote,
+        formatTextHandler,
+        isNoteFormatted,
       }}
     >
       {children}

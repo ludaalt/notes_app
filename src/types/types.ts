@@ -21,4 +21,6 @@ export type AppContextType = {
   filterData: (value: string) => void;
 
   rewriteNote: (value: string) => void;
+  formatTextHandler: () => void;
+  isNoteFormatted: boolean;
 };

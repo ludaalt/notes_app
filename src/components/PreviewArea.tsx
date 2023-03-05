@@ -10,16 +10,19 @@ const StyledPreviewArea = styled.div<{
 }>`
   width: ${(props) =>
     props.showMode === "list" ? `70%` : props.currentNote ? "100%" : `0%`};
-  padding: ${(props) => (props.showMode === "list" ? `20px` : `0`)};
 
-  border: 3px solid red;
+  padding: ${(props) => (props.showMode === "list" ? `20px` : `0`)};
 `;
 
-const StyledTextArea = styled.textarea`
+const StyledTextArea = styled.textarea<{
+  showMode: string;
+}>`
   width: 100%;
   height: 100%;
 
-  padding: 20px;
+  padding: 20px 0;
+  padding: ${(props) => (props.showMode === "list" ? `0` : `20px`)};
+
   border: none;
   background: none;
 
@@ -29,7 +32,7 @@ const StyledTextArea = styled.textarea`
 `;
 
 const PreviewArea = () => {
-  const { showMode, currentNote, rewriteNote } = useContext(
+  const { showMode, currentNote, rewriteNote, isNoteFormatted } = useContext(
     AppContext
   ) as AppContextType;
 
@@ -47,6 +50,8 @@ const PreviewArea = () => {
   return (
     <StyledPreviewArea showMode={showMode} currentNote={currentNote}>
       <StyledTextArea
+        className={isNoteFormatted ? "bold" : ""}
+        showMode={showMode}
         value={editValue}
         onChange={(e) => rewriteHandle(e.target.value)}
       ></StyledTextArea>
