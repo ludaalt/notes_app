@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 import { INoteItem } from "../types/types";
+import { parseDate } from "../services/parseDate";
 
 const PreviewNote = styled.li<{ isChoosen: boolean }>`
   cursor: pointer;
@@ -31,9 +32,16 @@ const Note: FC<Props> = ({ item, isChoosen, chooseCurrentNote }) => {
       }}
     >
       <p>{item.title}</p>
-      <div>
-        <p>{item.date}</p>
-        <p>{item.description}</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <p>{parseDate(item.date)}</p>
+        <p style={{ wordBreak: "break-all", marginLeft: "20px" }}>
+          {item.description}
+        </p>
       </div>
     </PreviewNote>
   );
