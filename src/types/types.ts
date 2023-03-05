@@ -2,7 +2,7 @@ export interface INoteItem {
   id: number;
   title: string;
   description?: string;
-  date: Date | string;
+  date: Date | string | number;
 }
 
 export type AppContextType = {
