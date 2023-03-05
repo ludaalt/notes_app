@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 
 import { INoteItem, AppContextType } from "../types/types";
 import { notes } from "../data/notes";
+import SHOW_MODES from "../const/showModes";
 
 export const AppContext = React.createContext<AppContextType | null>(null);
 
@@ -14,6 +15,14 @@ const AppProvider: FC<Props> = ({ children }) => {
   const [currentNote, setCurrentNote] = useState<INoteItem>();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [showMode, setShowMode] = useState<string>(SHOW_MODES.List);
+
+  const showModeHandle = () => {
+    showMode === SHOW_MODES.List
+      ? setShowMode(SHOW_MODES.Grid)
+      : setShowMode(SHOW_MODES.List);
+  };
 
   const openDeleteDialog = () => {
     setIsModalOpen(true);
@@ -45,9 +54,19 @@ const AppProvider: FC<Props> = ({ children }) => {
     setNotesList(newNoteList);
   };
 
+  const rewriteNote = (value: string) => {
+    setNotesList((prevState) =>
+      prevState.map((item: INoteItem) =>
+        item.id === currentNote!.id ? { ...item, title: value } : item
+      )
+    );
+  };
+
   return (
     <AppContext.Provider
       value={{
+        showMode,
+        showModeHandle,
         isModalOpen,
         openDeleteDialog,
         closeDeleteDialog,
@@ -56,6 +75,7 @@ const AppProvider: FC<Props> = ({ children }) => {
         chooseCurrentNote,
         filterData,
         deleteNote,
+        rewriteNote,
       }}
     >
       {children}
