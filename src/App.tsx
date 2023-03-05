@@ -5,6 +5,7 @@ import NoteList from "./components/NoteList";
 import PreviewArea from "./components/PreviewArea";
 import DeleteDialog from "./components/DeleteDialog";
 import NoteListControlPanel from "./components/NoteListControlPanel";
+import AddNoteDialog from "./components/AddNoteDialog";
 
 const MainComponent = styled.div`
   width: 100%;
@@ -25,6 +26,7 @@ const App = (): JSX.Element => {
         </div>
 
         <DeleteDialog />
+        <AddNoteDialog />
       </MainComponent>
     </AppProvider>
   );

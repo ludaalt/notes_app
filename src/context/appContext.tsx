@@ -15,6 +15,7 @@ const AppProvider: FC<Props> = ({ children }) => {
   const [currentNote, setCurrentNote] = useState<INoteItem>();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const [showMode, setShowMode] = useState<string>(SHOW_MODES.List);
 
@@ -32,6 +33,14 @@ const AppProvider: FC<Props> = ({ children }) => {
 
   const closeDeleteDialog = () => {
     setIsModalOpen(false);
+  };
+
+  const openAddDialog = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddDialog = () => {
+    setIsAddModalOpen(false);
   };
 
   const chooseCurrentNote = (id: number) => {
@@ -66,14 +75,31 @@ const AppProvider: FC<Props> = ({ children }) => {
 
   const formatTextHandler = () => setIsNoteFormatted((prev) => !prev);
 
+  const addNote = (value: { title: string; description?: string }) => {
+    const newNote = {
+      id: notesList.length + 1,
+      title: value.title,
+      description: value.description,
+      date: new Date(Date.now()).toString(),
+    };
+
+    setNotesList((prevState) => [...prevState, newNote]);
+  };
+
   return (
     <AppContext.Provider
       value={{
         showMode,
         showModeHandle,
+
         isModalOpen,
         openDeleteDialog,
         closeDeleteDialog,
+
+        isAddModalOpen,
+        openAddDialog,
+        closeAddDialog,
+
         notesList,
         currentNote,
         chooseCurrentNote,
@@ -82,6 +108,8 @@ const AppProvider: FC<Props> = ({ children }) => {
         rewriteNote,
         formatTextHandler,
         isNoteFormatted,
+
+        addNote,
       }}
     >
       {children}

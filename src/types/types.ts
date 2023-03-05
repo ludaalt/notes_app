@@ -1,8 +1,8 @@
 export interface INoteItem {
   id: number;
   title: string;
-  description: string;
-  date: string;
+  description?: string;
+  date: Date | string;
 }
 
 export type AppContextType = {
@@ -12,6 +12,10 @@ export type AppContextType = {
   isModalOpen: boolean;
   openDeleteDialog: () => void;
   closeDeleteDialog: () => void;
+
+  isAddModalOpen: boolean;
+  openAddDialog: () => void;
+  closeAddDialog: () => void;
 
   notesList: INoteItem[];
   currentNote?: INoteItem;
@@ -23,4 +27,6 @@ export type AppContextType = {
   rewriteNote: (value: string) => void;
   formatTextHandler: () => void;
   isNoteFormatted: boolean;
+
+  addNote: (value: { title: string; description?: string }) => void;
 };
